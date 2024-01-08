@@ -1,6 +1,8 @@
 const User = require("../../model/user.model");
 var jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const ContactUs = require("../../model/contactus.model");
+const NewsLetter = require("../../model/newsletter.model");
 
 exports.userRegister = async (req, res) => {
   try {
@@ -177,6 +179,166 @@ exports.changePassword = async (req, res) => {
     console.log("error:::", error);
     return res.status(400).json({
       message: "Something went wrong",
+      status: 400,
+      Success: 0,
+    });
+  }
+};
+
+exports.updateShippingAddress = async (req, res) => {
+  try {
+    const id = req?.user?.id;
+    const {
+      ship_address1,
+      ship_address2,
+      ship_zip,
+      ship_city,
+      ship_country,
+      state,
+    } = req.body;
+    if (
+      (!ship_address1,
+      !ship_address2,
+      !ship_zip,
+      !ship_city,
+      !ship_country,
+      !state)
+    ) {
+      return res.status(400).json({
+        message: "Please fill all the fields",
+        status: 400,
+        Success: 0,
+      });
+    }
+
+    const userData = await User.find({ _id: id });
+
+    if (userData) {
+      await User.findByIdAndUpdate(
+        {
+          _id: id,
+        },
+        {
+          ship_address1,
+          ship_address2,
+          ship_zip,
+          ship_city,
+          ship_country,
+          state,
+        }
+      )
+        .then(() => {
+          return res.status(200).json({
+            message: "Update Successfully",
+            status: 200,
+            Success: 1,
+          });
+        })
+        .catch((err) => {
+          return res.status(500).json({
+            message: err.message,
+            status: 500,
+            Success: 0,
+          });
+        });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      message: error.message,
+      status: 400,
+      Success: 0,
+    });
+  }
+};
+
+exports.updateUserAccount = async (req, res) => {
+  try {
+    const id = req.user._id;
+    const { first_name, last_name } = req.body;
+
+    const userData = await User.findById(id);
+
+    if (userData) {
+      await User.findByIdAndUpdate(
+        { _id: id },
+        {
+          $set: { first_name, last_name },
+        }
+      )
+        .then(() => {
+          res.status(200).json({
+            message: "Update Successfully",
+            status: 200,
+            Success: 1,
+          });
+        })
+        .catch((error) => {
+          return res.status(500).json({
+            message: err.message,
+            status: 500,
+            Success: 0,
+          });
+        });
+    } else {
+      res.status(500).json({
+        message: "Update Not Successfully",
+        status: 400,
+        Success: 0,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      message: err.message,
+      status: 500,
+      Success: 0,
+    });
+  }
+};
+
+exports.contactUs = async (req, res) => {
+  try {
+    const contactDetails = await ContactUs({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+      message: req.body.message,
+    });
+
+    const saveContactData = await contactDetails.save();
+
+    res.status(201).json({
+      message: "contact us Registered",
+      status: 201,
+      data: saveContactData,
+      Success: 1,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: err.message,
+      status: 500,
+      Success: 0,
+    });
+  }
+};
+
+exports.addNewsletter = async (req, res) => {
+  try {
+    const NewsLetterDetails = new NewsLetter({
+      email: req.body.email,
+    });
+
+    const saveNewsLetterData = await NewsLetterDetails.save();
+
+    res.status(201).json({
+      message: "NewsLetter Registered",
+      status: 201,
+      data: saveNewsLetterData,
+      Success: 1,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "NewsLetter Not Registered",
       status: 400,
       Success: 0,
     });
