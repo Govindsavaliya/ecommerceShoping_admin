@@ -1,9 +1,9 @@
 const passport = require('passport')
-const passportlocal = require('passport-local')
-const MainAdmin = require('../model/MainAdmin')
-const LocalStretagy = passportlocal.Strategy;
+const passportLocal = require('passport-local')
+const MainAdmin = require('../model/mainAdmin.model')
+const localStrategy = passportLocal.Strategy;
 
-passport.use(new LocalStretagy({
+passport.use(new localStrategy({
     usernameField: "email"
 },
     async (email, password, cb) => {

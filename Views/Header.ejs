@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+    <title>Ecommerce Admin</title>
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/vendors/quill/quill.bubble.css">
+    <link rel="stylesheet" href="/assets/vendors/quill/quill.snow.css">
+    <link rel="stylesheet" href="/assets/vendors/chartjs/Chart.min.css">
+    <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css">
+
+    <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/x-icon">
+
+    <link rel="stylesheet" type="text/css" href="/assets/js/datatables/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/js/datatables/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/js/datatables/select.bootstrap4.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/assets/js/datatables/dataTables.checkboxes.css">
+    <link rel="stylesheet" href="assets/vendors/choices.js/choices.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="/assets/js/jquery-2.2.4.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/super-build/ckeditor.js"></script>   
+
+    <script type="text/javascript" src="/assets/js/datatables/pdfmake.min.js"></script>
+    <script type="text/javascript" src="/assets/js/datatables/vfs_fonts.js"></script>
+    <script type="text/javascript" src="/assets/js/datatables/jquery.dataTables.min.js">
+    </script>
+    <script type="text/javascript" src="/assets/js/datatables/dataTables.bootstrap4.min.js">
+    </script>
+    <script type="text/javascript" src="/assets/js/datatables/dataTables.buttons.min.js">
+    </script>
+    <script type="text/javascript" src="/assets/js/datatables/buttons.bootstrap4.min.js">
+    </script>
+    <script type="text/javascript" src="/assets/js/datatables/buttons.colVis.min.js">
+    </script>
+    <script type="text/javascript" src="/assets/js/datatables/buttons.html5.min.js">
+    </script>
+    <script type="text/javascript" src="/assets/js/datatables/buttons.print.min.js">
+    </script>
+    <script type="text/javascript" src="/assets/js/datatables/dataTables.select.min.js">
+    </script>
+    <script type="text/javascript" src="/assets/js/datatables/sum().js"></script>
+    <script type="text/javascript" src="/assets/js/datatables/dataTables.checkboxes.min.js">
+    </script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div id="sidebar" class='active'>
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header" style="margin-bottom:-1.5rem;">
+                    <h1><a href="/admin/Dashboard" style="color:#55BEFF; font-weight: bold; font-size:50px">Admin</a>
+                    </h1>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class='sidebar-title'>Main Menu</li>
+                        <li class="sidebar-item active ">
+                            <a href="/admin/Dashboard" class='sidebar-link'>
+                                <i data-feather="home" width="20"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/admin/Users" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Users</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i data-feather="triangle" width="20"></i>
+                                <span>Manage Categories</span>
+                            </a>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="/admin/Categories">Categories</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/SubCategories">Sub Categories</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/ChildCategories">Child Categories</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i data-feather="briefcase" width="20"></i>
+                                <span>Manage Products</span>
+                            </a>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="/admin/AddProduct">Add Product</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/addproductcolor">Add Product Color</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/AllProduct">All Products</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/AllColor">All Color</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/ProductReviews">Product Reviews</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i data-feather="file-text" width="20"></i>
+                                <span>Manage Orders</span>
+                            </a>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="/admin/AllOrders">All Orders</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/PendingOrders">Pending Orders</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/ConfirmOrders">Confirm Orders</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/ReturnOrders">Return Orders</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/AcceptWallet">Accept Wallet</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="/ReplaceOrders/replace">Replace Orders</a>
+                                </li> -->
+                                <li>
+                                    <a href="/admin/CancelledOrders">Canceled Orders</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="/RefundOrder">Cancelled Orders</a>
+                                </li> -->
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i data-feather="briefcase" width="20"></i>
+                                <span>Manage Shipping</span>
+                            </a>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="/admin/ShpingLoginPage">shiprocket Login</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/AllOrderShow">All Orders</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/ShippingReturn">Return Order</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/ShippingCancel">Cancel Order</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/ShippingDelivered">Delivered Order</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="/ProductReviews">Product Reviews</a>
+                                </li> -->
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="/admin/SocialMedia" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Social Media</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/admin/ContactUs" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Contact Us</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/admin/WebReviews" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Reviews</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/admin/Banner" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Banner</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/admin/MiddleBanner" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Middle Banner</span>
+                            </a>
+                        </li>
+                        <!-- <li class="sidebar-item">
+                            <a href="/admin/Blog" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Blog</span>
+                            </a>
+                        </li> -->
+                        <li class="sidebar-item">
+                            <a href="/admin/PaymentService" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Payment</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/admin/DiscountCoupen" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Discount</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/admin/Tax" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Tax</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/admin/NewSletter" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>NewSletter</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/admin/AdminAddressInfo" class='sidebar-link'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Seller Address</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/admin/ClearCache" class='sidebar-link text-secondary'>
+                                <i data-feather="grid" width="20"></i>
+                                <span>Clear Cache</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <nav class="navbar navbar-header navbar-expand navbar-light">
+                <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
+                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
+                        <li class="dropdown">
+                            <a href="#" data-bs-toggle="dropdown"
+                                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                                <div class="avatar me-1 text-danger">
+                                    <i data-feather="log-out"></i>
+                                </div>
+                                <a href="/admin/LogOut" class="d-none d-md-block d-lg-inline-block">LogOut</a>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>

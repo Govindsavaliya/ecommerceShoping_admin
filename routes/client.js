@@ -17,6 +17,7 @@ const {
 } = require("../controller/client/country.controller");
 const routes = express.Router();
 
+// User 
 routes.post("/register", userRegister);
 routes.post("/login", userLogin);
 routes.get("/logout", userAuth, userLogout);

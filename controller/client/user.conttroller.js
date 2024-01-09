@@ -20,7 +20,7 @@ exports.userRegister = async (req, res) => {
       });
       const userData = new User({ email, password, phoneNumber, token });
       await userData.save();
-      res.cookie("userInformation", phoneNumber, {
+      res.cookie("userInformation", token, {
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),
       });
 
@@ -58,7 +58,7 @@ exports.userLogin = async (req, res) => {
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(200).json({
+      return res.status(400).json({
         Success: 0,
         status: 400,
         message: "User not found",
@@ -66,19 +66,20 @@ exports.userLogin = async (req, res) => {
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(200).json({
+      return res.status(400).json({
         Success: 0,
         status: 400,
         message: "Invalid password",
       });
     }
 
-    const token = await user.generateAuthToken();
+    const token = await user.generateauthtoken();
 
     res.cookie("jwt", token, {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       httpOnly: true,
     });
+
     return res.status(200).json({
       message: "Login successfully",
       status: 200,
@@ -86,6 +87,7 @@ exports.userLogin = async (req, res) => {
       Success: 1,
     });
   } catch (error) {
+    console.log("🚀 ~ exports.userLogin= ~ error:", error)
     return res.status(400).json({
       message: "Something went wrong",
       status: 400,
